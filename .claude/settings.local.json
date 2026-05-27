@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/om/.nvm/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//opt/homebrew/lib/node_modules/npm/bin/**)",
+      "Bash(/opt/homebrew/bin/npm --version)",
+      "Read(//opt/homebrew/Cellar/**)",
+      "Read(//opt/homebrew/lib/node_modules/**)"
+    ]
+  }
+}
