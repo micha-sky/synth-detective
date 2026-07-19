@@ -8,7 +8,8 @@
       "Read(//opt/homebrew/lib/node_modules/npm/bin/**)",
       "Bash(/opt/homebrew/bin/npm --version)",
       "Read(//opt/homebrew/Cellar/**)",
-      "Read(//opt/homebrew/lib/node_modules/**)"
+      "Read(//opt/homebrew/lib/node_modules/**)",
+      "Bash(npx netlify *)"
     ]
   }
 }

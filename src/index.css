@@ -1,2 +1,349 @@
+/* ============================================================
+   SYNTH DETECTIVE SD-1 — faceplate stylesheet
+   Palette drawn from the Roland TR-808: matte charcoal chassis,
+   silkscreen gray, warm cream ink, and the quad color band.
+   ============================================================ */
+
+:root {
+  --body: #131316;
+  --panel: #1e1e22;
+  --panel-raised: #26262b;
+  --line: #35353c;
+  --line-soft: #2a2a30;
+  --silk: #8d8d96;
+  --silk-dim: #64646c;
+  --ink: #ece9e2;
+  --ink-soft: #c6c3ba;
+  --q-red: #e4442c;
+  --q-orange: #f08120;
+  --q-yellow: #f2c230;
+  --q-cream: #e8e0cd;
+  --led-ready: #58c470;
+  --led-busy: #ff4a3d;
+  --err: #ff6a5c;
+
+  --font-face: 'Michroma', 'Eurostile', sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; }
+
+body {
+  margin: 0;
+  background: var(--body);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.unit {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+/* ---- faceplate header ------------------------------------ */
+
+.faceplate {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; align-items: baseline; gap: 0.75rem; }
+
+.brand .model {
+  font-family: var(--font-face);
+  font-size: 11px;
+  color: var(--silk);
+  letter-spacing: 0.2em;
+}
+
+.brand h1 {
+  font-family: var(--font-face);
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-face);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: var(--silk);
+}
+
+.led {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--led-ready);
+  box-shadow: 0 0 6px var(--led-ready);
+}
+
+.led.busy {
+  background: var(--led-busy);
+  box-shadow: 0 0 8px var(--led-busy);
+  animation: led-blink 0.9s steps(2, start) infinite;
+}
+
+@keyframes led-blink { 50% { opacity: 0.25; } }
+
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--silk-dim);
+  margin: 0.5rem 0 0;
+}
+
+/* the quad band — signature element */
+.quad-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 5px;
+  margin: 1.25rem 0 2rem;
+}
+.quad-band i:nth-child(1) { background: var(--q-red); }
+.quad-band i:nth-child(2) { background: var(--q-orange); }
+.quad-band i:nth-child(3) { background: var(--q-yellow); }
+.quad-band i:nth-child(4) { background: var(--q-cream); }
+
+/* ---- panel sections (INPUT / OUTPUT / MEMORY) -------------- */
+
+.section { margin-bottom: 2rem; }
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-face);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--silk);
+  margin-bottom: 0.75rem;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.25rem;
+}
+
+/* ---- inputs ------------------------------------------------ */
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .field-row { grid-template-columns: 1fr; }
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-face);
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  color: var(--silk);
+  margin-bottom: 6px;
+}
+
+.field .hint { color: var(--q-orange); text-transform: none; letter-spacing: 0.05em; }
+
+.field input {
+  width: 100%;
+  background: var(--body);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 10px 12px;
+}
+
+.field input::placeholder { color: var(--silk-dim); }
+
+.field input:focus-visible {
+  outline: 2px solid var(--q-cream);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* the big red one */
+.identify-btn {
+  appearance: none;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #f0523a 0%, var(--q-red) 45%, #c0301c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 2px 0 #8e2312;
+  color: #fff;
+  font-family: var(--font-face);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  padding: 12px 26px;
+  cursor: pointer;
+  transition: transform 0.05s, box-shadow 0.05s;
+}
+
+.identify-btn:hover:not(:disabled) { filter: brightness(1.06); }
+
+.identify-btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 #8e2312;
+}
+
+.identify-btn:focus-visible { outline: 2px solid var(--q-cream); outline-offset: 2px; }
+
+.identify-btn:disabled {
+  background: var(--panel-raised);
+  box-shadow: none;
+  color: var(--silk-dim);
+  cursor: not-allowed;
+}
+
+/* ---- example patterns -------------------------------------- */
+
+.patterns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  align-items: center;
+}
+
+.pattern-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pattern-btn:hover:not(:disabled) { color: var(--ink); }
+.pattern-btn:disabled { color: var(--silk-dim); cursor: not-allowed; }
+.pattern-btn:focus-visible { outline: 2px solid var(--q-cream); outline-offset: 2px; border-radius: 2px; }
+
+.pattern-btn .swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+
+/* ---- status / error ---------------------------------------- */
+
+.searching {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--silk);
+  animation: led-blink 1.4s ease-in-out infinite;
+}
+
+.error-panel {
+  border: 1px solid rgba(228, 68, 44, 0.45);
+  background: rgba(228, 68, 44, 0.08);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--err);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* ---- output (markdown result) ------------------------------ */
+
+.output { animation: fade-up 0.35s ease-out; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.output h2 {
+  font-family: var(--font-face);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin: 0 0 1.1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.output h3 {
+  font-family: var(--font-face);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--silk);
+  margin: 1.6rem 0 0.6rem;
+}
+
+.output p { color: var(--ink-soft); margin: 0 0 0.75rem; }
+
+.output ul { padding-left: 1.2rem; margin: 0.25rem 0 0.75rem; }
+
+.output li { margin-bottom: 6px; color: var(--ink-soft); }
+
+.output li::marker { color: var(--q-orange); }
+
+.output strong { color: var(--ink); font-weight: 600; }
+
+.output em {
+  color: var(--silk);
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.output hr { border: none; border-top: 1px solid var(--line-soft); margin: 1rem 0; }
+
+.output a { color: var(--q-yellow); text-decoration: none; }
+.output a:hover { text-decoration: underline; }
+
+/* ---- memory (history) -------------------------------------- */
+
+.memory-btn {
+  display: block;
+  background: none;
+  border: none;
+  padding: 3px 0;
+  color: var(--silk);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.memory-btn:hover { color: var(--ink-soft); }
+.memory-btn:focus-visible { outline: 2px solid var(--q-cream); outline-offset: 2px; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .led.busy, .searching { animation: none; }
+  .output { animation: none; }
+}
